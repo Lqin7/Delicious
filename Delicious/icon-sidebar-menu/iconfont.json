@@ -1,0 +1,65 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "39538333",
+      "name": "汉堡",
+      "font_class": "hanbao",
+      "unicode": "101a0",
+      "unicode_decimal": 65952
+    },
+    {
+      "icon_id": "39538337",
+      "name": "披萨",
+      "font_class": "pisa",
+      "unicode": "101a1",
+      "unicode_decimal": 65953
+    },
+    {
+      "icon_id": "39538338",
+      "name": "面包",
+      "font_class": "mianbao",
+      "unicode": "101a2",
+      "unicode_decimal": 65954
+    },
+    {
+      "icon_id": "39538339",
+      "name": "甜点",
+      "font_class": "tiandian",
+      "unicode": "101a3",
+      "unicode_decimal": 65955
+    },
+    {
+      "icon_id": "39538342",
+      "name": "烤鸭",
+      "font_class": "kaoya",
+      "unicode": "101a4",
+      "unicode_decimal": 65956
+    },
+    {
+      "icon_id": "39538344",
+      "name": "啤酒",
+      "font_class": "pijiu",
+      "unicode": "101a5",
+      "unicode_decimal": 65957
+    },
+    {
+      "icon_id": "39538345",
+      "name": "薯条",
+      "font_class": "shutiao",
+      "unicode": "101a6",
+      "unicode_decimal": 65958
+    },
+    {
+      "icon_id": "39538351",
+      "name": "热狗",
+      "font_class": "regou",
+      "unicode": "101a7",
+      "unicode_decimal": 65959
+    }
+  ]
+}

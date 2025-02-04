@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./search-icon/iconfont.css">
+    <link rel="stylesheet" href="./btn-box-icon/iconfont.css">
+    <link rel="stylesheet" href="./dish-information-icon/iconfont.css">
+    <link rel="stylesheet" href="./index.css">
+    <script src="./icon-sidebar-menu/iconfont.js"></script>
+    <script src="./index.js"></script>
+    <style>
+        /* 设置背景颜色为淡灰色，并且把全局内外边距都清除 */
+        * {
+            padding: 0;
+            margin: 0;
+            background-color: #585858;
+        }
+
+        .maxbox {
+            position: relative;
+        }
+
+        /* 设置头部header盒子宽度为最大盒子maxbox宽度的百分之百，高度统一设定为100px，并且给上上边框，边框颜色和背景颜色的选择都是酒红色,给上左边的内边距是为了不让Logo离盒子左 */
+        /* 边框的距离太过接近，使用padding-left既不会影响header盒子中使用了百分比布局的盒子，也让Logo看起来更独立一点，一举两得。 */
+        .maxbox .header {
+            width: 100%;
+            height: 100px;
+            background-color: #9c4343;
+            border-top: 1px solid #9c4343;
+            padding-left: 20px;
+        }
+
+        /* 设置header盒子中左边用来装logo图片的盒子宽度始终为父盒子header盒子的百分之七，高度始终为父盒子header盒子的百分之百，并给上左浮动使header盒子中右边用来装导航栏的 */
+        /* nav-right盒子与logo盒子处在统一水平线上。*/
+        .header .logo {
+            width: 7%;
+            height: 100%;
+            float: left;
+        }
+
+        /* 设置logo盒子中的logo图片始终为logo盒子宽度和高度的百分之百。 */
+        .logo img {
+            width: 100%;
+            height: 100%;
+            background-color: #9c4343;
+        }
+
+        /* 设置box-search盒子的宽度和高度始终为box-search盒子的父盒子header盒子宽度的百分之四十三和高度的百分之百，并且把box-search这个盒子的布局属性设置为弹性盒子，同时使用align-
+        items属性让其中的title-logo盒子和input表单，button按钮全部水平居中，最后添加左浮动，好让右边的nav-right盒子和logo盒子，box-search盒子处在同一水平线上。 */
+        .header .box-search {
+            width: 43%;
+            height: 100%;
+            background-color: #9c4343;
+            display: flex;
+            align-items: center;
+            float: left;
+        }
+
+        .box-search .title-logo {
+            width: 25%;
+            height: 100%;
+            background-color: #9c4343;
+            display: flex;
+            align-items: center;
+        }
+
+        .title-logo img {
+            width: 100%;
+            height: 75%;
+            background-color: #9c4343;
+        }
+
+        .box-search input {
+            margin-left: 5%;
+            background-color: #9c4343;
+            width: 40%;
+            height: 30%;
+            border: 3px solid #FFB800;
+            border-radius: 20px;
+            padding-left: 10px;
+            outline: none;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        /* 利用伪元素来实现对input表单中的占位符定义样式 */
+        .box-search input::placeholder {
+            color: #d8d8d8;
+            font-size: 14px;
+        }
+
+        .box-search input:hover {
+            opacity: 1;
+        }
+
+        .box-search button {
+            margin-left: 2%;
+            background-color: #9c4343;
+            border: 0;
+            width: 10%;
+            height: 30%;
+            border-radius: 20px;
+            color: #FFB800;
+            transition: 0.3s;
+            border: 3px solid #FFB800;
+            opacity: 0.6;
+        }
+
+        .box-search button:hover {
+            cursor: pointer;
+            background-color: #FFB800;
+            color: #ffffff;
+            opacity: 1;
+        }
+
+        /* 设置header盒子中用来装右边导航栏的nav-right盒子宽度始终为父盒子header盒子的百分之五十，高度始终为父盒子header盒子的百分之百，最后使用右浮动来让nav-right盒子与logo盒子 */
+        /* 和box-search盒子在同一水平线上。 */
+        .header .nav-right {
+            width: 50%;
+            height: 100%;
+            float: right;
+        }
+
+        /* 设置用来装导航栏的ul（无序标签）标签的宽度始终为父盒子nav-right盒子自身宽度的百分之百，高度也为父盒子nav-right盒子自身高度的百分之百，最好取消其中li标签头部的小圆点。 */
+        .nav-right ul {
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            background-color: #9c4343;
+        }
+
+        /* 设置用来装导航栏的ul标签其中的li标签呈水平排列方式，并且将其高度设置为相较于其父元素ul标签高度的百分之百，同时利用line-height将其行高设置为100px，也就是和nav-right盒子 */
+        /* 以及ul标签一样的高度，从而达到其中文字垂直居中的效果（我试着将line-height属性的属性值的单位设置为百分比，但是始终无法让其垂直居中），最好设置了其中文字的字体大小。 */
+        .nav-right ul li {
+            display: inline;
+            font-size: 14px;
+            height: 100%;
+            background-color: #9c4343;
+            margin: 0 26px;
+            color: #ffcc49;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .nav-right ul a:hover li {
+            color: #FFB800;
+        }
+
+        /* 将包裹着li标签的每个a标签的下划线取消了，并且将每个a标签的排列方式设置为水平块状排列，同时利用line-height将其行高设置为100px，也就是和nav-right盒子，以及ul标签一样的高度， */
+        /* 从而达到其中文字垂直居中的效果（我试着将line-height属性的属性值的单位设置为百分比，但是始终无法让其垂直居中）。 */
+        .nav-list a {
+            text-decoration: none;
+            display: inline-block;
+            line-height: 100px;
+            background-color: #9c4343;
+        }
+
+        /* 设置最大的盒子为max-box盒子宽度的百分之百，并且距离header标签有30px的距离，自身高度设置为500px。 */
+        main {
+            width: 100%;
+            padding-top: 30px;
+            height: 500px;
+        }
+
+        /* 设置左侧用来装菜单列表的盒子为main盒子的宽度的百分之十五，高度的百分之百，并且给一个左外边距50px，最后添加一个左浮动，让中间盒子得以与这个盒子 */
+        /* 处在同一水平线。 */
+        .sidebar-menu {
+            width: 15%;
+            height: 100%;
+            float: left;
+            margin-left: 50px;
+        }
+
+        /* 设置ul标签的宽度为父盒子的宽度的百分之百，高度的百分之百，并且取消其中每个li标签的小圆点。 */
+        .sidebar-menu ul {
+            list-style: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 设置其中每个li标签的宽度为ul标签宽度的百分之六十五，并且给上左外边距15px以拉开一点文本和左侧图标的距离，同时设置好背景颜色酒红色。 */
+        .sidebarmenu-list li {
+            width: 65%;
+            background-color: #9c4343;
+            margin-left: 15px;
+        }
+
+        /* 让ul标签中的每个a标签呈块级元素，取消下划线，宽度为ul标签的百分之百，高度为父元素ul标签的百分之百高度/a标签个数，单位为百分比，同时将每个a标签添加 */
+        /* 弹性盒子属性，并使用align-items属性使其中元素都在水平居中，再给上下边框，以区分每个a标签。 */
+        .sidebarmenu-list a {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            height: 12%;
+            color: #FFB800;
+            display: flex;
+            align-items: center;
+            background-color: #9c4343;
+            border-bottom: 5px solid #585858;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        /* 给每个用来装多色图标的svg标签设置其宽度为其父元素每个a标签宽度的百分之二十，高度的百分之百，并且给其一个左外边距25px，使其在a标签中的图标看起来不至于 */
+        /* 拥挤。 */
+        .sidebarmenu-list a>svg {
+            background-color: #9c4343;
+            width: 20%;
+            height: 100%;
+            margin-left: 25px;
+        }
+
+        /* 因为最下面的a标签不需要设置下边框，故取消。 */
+        .sidebarmenu-list a:nth-child(8) {
+            border: 0;
+        }
+
+        /* 设置每个餐品的价格文本的背景颜色为酒红色。 */
+        .sidebarmenu-list a>.price {
+            background-color: #9c4343;
+        }
+
+        /* 当鼠标移入某个a标签时，给每个a标签添加一个向上平移的动画，然后再加一点阴影，最后使其不透明度完全变为1。 */
+        .sidebarmenu-list a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 -1px 12px #727272;
+            opacity: 1;
+        }
+
+        /* 当鼠标移入某个a标签时，让其最右侧的两个用来装添加和删除按钮的span标签向右偏移自身的百分之百，同时不透明度变为1，最后再给上弹性盒子属性。 */
+        .sidebarmenu-list a:hover .btn-box>span {
+            transform: translateX(100%);
+            opacity: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 设置用来装添加和删除按钮的父盒子为a标签的宽度的百分之十五，高度的百分之百，同时为了让这两个盒子上下排列，使用弹性盒子中的direction属性改变其相对垂直 */
+        /* 轴来进行布局。 */
+        .sidebarmenu-list a>.btn-box {
+            background-color: #9c4343;
+            width: 15%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 设置用来装添加和删除按钮的大盒子中的两个span标签宽度为其父盒子的百分之百，高度为其父盒子的百分之五十，同时添加弹性盒子属性，文本大小为20px，最后将其不透明度 */
+        /* 设置为0，最后为了让动画看起来有过渡效果，添加transition属性并给一个0.3s的值。 */
+        .btn-box span {
+            background-color: #9c4343;
+            color: #FFB800;
+            width: 100%;
+            height: 50%;
+            display: flex;
+            font-size: 20px;
+            align-items: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        /* 给每个按钮设置其圆角属性，使其在弹出来之后看起来整体平滑一点。 */
+        .btn-box .add {
+            border-radius: 0 30% 0 0;
+        }
+
+        .btn-box .subtract {
+            border-radius: 0 0 30% 0;
+        }
+
+        /* 给两个按钮添加一些图标，过渡动画等。 */
+        .btn-box .add:hover::before {
+            opacity: 1;
+        }
+
+        .btn-box .subtract:hover::before {
+            opacity: 1;
+        }
+
+        .btn-box .add::before {
+            content: "\ea66";
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .btn-box .subtract::before {
+            content: "\ea67";
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        /* 设置中间的主体盒子main标签中间的购物车模块为父盒子main盒子宽度的百分之五十，高度的百分之百，并给上一个左外边距40px，然后为了使中间的购物列表不溢出来 */
+        /* ，添加一个overflow：hidden，也就是溢出隐藏，最后添加一个左浮动，使main右侧的旁白盒子能够与上两个盒子处在同一水平线上。 */
+        main .shopping-cart {
+            width: 50%;
+            height: 100%;
+            margin-left: 40px;
+            overflow: hidden;
+            float: left;
+        }
+
+        /* 设置购物车盒子中的头部盒子的宽度为其父盒子的百分之百，高度为其父盒子的百分之十，背景颜色为网站主色调，最后添加一个弹性盒子属性。 */
+        .shopping-cart .header-box {
+            width: 100%;
+            height: 10%;
+            background-color: #9c4343;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 设置购物车盒子中头部盒子中的复选框盒子为其父盒子header-box盒子宽度的百分之六，高度的百分之五十，最后给上一个左外边距20px。 */
+        .header-box .check-box {
+            visibility: hidden;
+            width: 6%;
+            height: 50%;
+            margin-left: 20px;
+        }
+
+        /* 设置用来与复选框关联的仿复选框盒子为其父盒子header-box盒子宽度的百分之十二，高度为其父盒子高度的百分之百，并给上一个1px的边框，添加display属性，最后给 */
+        /* 上一个左外边距百分之十五。 */
+        .header-box .custom-checkbox {
+            width: 12%;
+            height: 100%;
+            border: 1px solid #FFB800;
+            display: block;
+            margin-right: 15%;
+        }
+
+        /* 设置用来装仿复选框按钮的label元素宽度为其父盒子header-box盒子宽度的百分之三十八，高度的百分之百，最后添加一个弹性盒子属性。 */
+        .header-box label {
+            background-color: #9c4343;
+            color: #FFB800;
+            width: 38%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 给header-box盒子中全选仿复选框的背景颜色为酒红色，字体颜色为网页副色调，最后给一个圆角属性，值为百分之三十五。 */
+        .header-box .custom-checkbox {
+            background-color: #9c4343;
+            color: #FFB800;
+            border-radius: 35%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 设置header-box中用来装餐品数量提示文本的盒子为其父元素header-box盒子宽度的百分之三十一，高度的百分之五十，给上背景颜色和字体颜色，最后
+        添加一个弹性盒子属性。 */
+        .header-box .dish-count {
+            width: 31%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            background-color: #9c4343;
+            color: #FFB800;
+        }
+
+        /* 设置header-box中用来装餐品价格提示文本的盒子为其父元素header-box盒子宽度的百分之二十五，高度的百分之五十，给上背景颜色和字体颜色，最后
+        添加一个弹性盒子属性。 */
+        .header-box .dish-price {
+            width: 25%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            background-color: #9c4343;
+            color: #FFB800;
+        }
+
+        /* 给header-box中两个用来装提示文本的盒子添加相对应的图标，并给上右内边距10px，使其看起来空间宽裕一些，并设置其大小为百分之两百（可能相对于这个盒子本身 */
+        /* 的字体大小，也可能相对于自己本身，我还不太确定。） */
+        .header-box .dish-count::before {
+            content: "\e61b";
+            font-size: 200%;
+            padding-right: 10px;
+        }
+
+        .header-box .dish-price::before {
+            content: "\e994";
+            font-size: 200%;
+            padding-right: 10px;
+        }
+
+        /* 设置main盒子中处在中间的购物车盒子中中间的购物车列表盒子为其父盒子购物车模块盒子宽度的百分之百，高度的百分之八十，并给上上内边距20px，使其与上边header-box */
+        /* 盒子区分开来，最后给上overflow：auto使检测其中是否有溢出内容，有的话自动增加滚动条，最后给上box-sizing属性和border-box属性值（好像是设置其盒子大小就是这个 */
+        /* 盒子的边框大小，也就是不让其中内容往下或者别的什么方向溢出）。 */
+        .shopping-cart .selected-dishes {
+            width: 100%;
+            height: 80%;
+            padding-top: 20px;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+
+        /* 设置购物车模块中间的购物车聊表盒子中用来装li标签的ul标签的宽度为其父盒子购物车列表盒子的百分之百，高度的百分之百，最后取消其中所有li标签的小圆点。 */
+        .selected-dishes .shopping-cart-list {
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            background-color: #9c4343;
+        }
+
+        /* 设置购物车列表盒子中的ul标签中的每个li标签的宽度为其父盒子ul标签的百分之百，高度的百分之二十，并给上背景颜色，下边框3px以区分开来每个li标签，最后再添加 */
+        /* 一个弹性盒子属性。 */
+        .shopping-cart-list li {
+            width: 100%;
+            height: 20%;
+            background-color: #9c4343;
+            border-bottom: 3px solid #585858;
+            display: flex;
+            align-items: center;
+            color: #FFB800;
+        }
+
+        /* 设置其每个li标签中的复选框按钮宽度为其父元素li标签宽度的百分之六，高度的百分之五十。 */
+        .shopping-cart-list input {
+            width: 6%;
+            height: 50%;
+            visibility: hidden;
+        }
+
+        /* 设置用来装伪复选框按钮的label标签为其父元素li标签宽度的百分之四，高度的百分之三十五，并给上一个边框1px，左外边距17px。 */
+        .shopping-cart-list label {
+            width: 4%;
+            height: 35%;
+            border: 1px solid #FFB800;
+            margin-left: 17px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 设置中间购物车列表的滚动条的宽度为0，也就是把这个元素给设置为看不见了。 */
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* 设置每个li标签中每个用来装多色图标的svg标签的背景颜色，和其宽度为其父盒子li标签的宽度的百分之十，高度的百分之五十。 */
+        .shopping-cart-list li>svg {
+            background-color: #9c4343;
+            width: 10%;
+            height: 50%;
+        }
+
+        /* 设置li标签中用来装每个菜品的名称的盒子的宽度为其父元素li标签盒子的百分之三十，并给上背景颜色为酒红色。 */
+        .dish-content .dish-text {
+            width: 30%;
+            background-color: #9c4343;
+        }
+
+        /* 设置li标签中用来装每个菜品的数量的盒子的宽度为其父元素li标签盒子的百分之二十八，并设置其字体颜色为网页副色调。 */
+        .dish-content .count {
+            background-color: #9c4343;
+            width: 28%;
+            color: #FFB800;
+        }
+
+        /* 设置li标签中用来装每个菜品的价格的盒子的宽度为其父元素li标签盒子的百分之二十八，并设置其字体颜色为网页副色调 */
+        .dish-content .price {
+            background-color: #9c4343;
+            color: #FFB800;
+        }
+
+        /* 设置购物车模块大盒子中最下面的结算盒子的宽度为其父元素购物车模块大盒子的百分之百，高度为百分之十，并给上背景颜色和上边框，以使其与购物车列表盒子区分开来。 */
+        .checkout-box {
+            width: 100%;
+            height: 10%;
+            background-color: #9c4343;
+            border-top: 2px solid #585858;
+        }
+
+        /* 设置结算盒子中用来装显示餐品的总计信息的盒子的宽度为其父盒子结算盒子的百分之百，高度也为百分之百，并给上背景颜色和弹性盒子属性。 */
+        .checkout-box .dish-summary {
+            width: 100%;
+            height: 100%;
+            background-color: #9c4343;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 设置用来装餐品总计信息的盒子中用来装餐品数量的元素的宽度为其父盒子餐品总计信息盒子的百分之三十，并给上背景颜色和弹性盒子属性。 */
+        .dish-summary .total-count {
+            width: 30%;
+            background-color: #9c4343;
+            color: #FFB800;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 设置用来装餐品总计信息的盒子中用来装餐品价格的元素的宽度为其父盒子餐品总计信息盒子的百分之三十，并给上背景颜色和弹性盒子属性。 */
+        .dish-summary .total-price {
+            width: 30%;
+            background-color: #9c4343;
+            color: #FFB800;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 设置用来装餐品总计信息的盒子中用来装结算按钮的盒子为其父元素餐品总计信息盒子的宽度的百分之四十，高度的百分之百，并给上背景颜色和弹性盒子属性。 */
+        .dish-summary .checkout-btn-box {
+            width: 40%;
+            height: 100%;
+            background-color: #9c4343;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 设置用来装餐品总计信息的盒子中用来装结算按钮的盒子中结算按钮的宽度为其父元素装结算按钮盒子宽度的百分之四十，并给上圆角，边框，背景颜色，字体颜色，字体 */
+        /* 大小属性，最后给上左外边距百分之三十六，不透明度为0.6，过渡时间为0.3s。 */
+        .dish-summary .checkout-btn-box>.checkout-btn {
+            width: 40%;
+            border-radius: 20px;
+            border: 5px solid #FFB800;
+            background-color: #9c4343;
+            color: #FFB800;
+            font-size: 24px;
+            margin-left: 36%;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        /* 给结算盒子中的结算按钮添加一个鼠标移入动画，鼠标移入时使按钮不透明度变为1，背景颜色变为网页副色调，字体颜色变为白色，最后给上一个鼠标样式属性。 */
+        .checkout-btn-box .checkout-btn:hover {
+            opacity: 1;
+            background-color: #FFB800;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* 设置main盒子中右侧的旁白大盒子宽度为main盒子的百分之二十五，高度为百分之百，最后给上一个右浮动属性，使其与前两个盒子处在同一水平线上，最后添加一个 */
+        /* 溢出隐藏属性，因为在其中间要制作一个轮播图。 */
+        main .sidebar-recommendations {
+            width: 25%;
+            height: 100%;
+            float: right;
+            overflow: hidden;
+        }
+
+        /* 设置右侧旁白大盒子中的头部盒子的宽度为其父盒子旁白大盒子宽度的百分之百，高度的百分之十，给上背景颜色。 */
+        .sidebar-recommendations .aside-header {
+            width: 100%;
+            height: 10%;
+            background-color: #9c4343;
+        }
+
+        /* 设置旁白大盒子中头部盒子中用来装标题logo的盒子宽度为其父盒子宽度的百分之百，高度的百分之百，并给上弹性盒子属性。 */
+        .aside-header .header-text {
+            background-color: #9c4343;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 设置标题logo的背景颜色为酒红色。 */
+        .aside-header .header-text>img {
+            background-color: #9c4343;
+        }
+
+        /* 设置旁白大盒子中用来装轮播图ul标签的轮播图盒子的宽度为其父盒子旁白大盒子的百分之百，高度为百分之五十，最后给上上内边距20px，最后为了防止盒子撑大导致旁白大盒子整体 */
+        /* 高度变大，添加一个box-sizing属性。 */
+        .sidebar-recommendations .carousel-box {
+            width: 100%;
+            height: 50%;
+            padding-top: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* 设置用来装li标签的ul标签的宽度为其父元素的百分之八百，高度为百分之一百，给上背景颜色，取消小圆点。 */
+        .sidebar-recommendations .carousel-box>.img-box {
+            width: 800%;
+            height: 100%;
+            background-color: #9c4343;
+            list-style: none;
+            position: relative;
+        }
+
+        /* 设置ul标签中每个li标签的宽度为其父元素ul标签的百分之十二点五，高度为百分之百，并给上一个左浮动使li标签呈水平排列。 */
+        .img-box .carousel-img {
+            float: left;
+            width: 12.5%;
+            height: 100%;
+        }
+
+        /* 设置用来轮播的图片的宽度为其父元素li标签宽度的百分之百，高度的百分之百。 */
+        .img-box .carousel-img>img {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        /* 设置旁白大盒子中最下面的每日一读模块盒子的宽度为其父元素旁白大盒子宽度的百分之百，高度的百分之四十，并给上一个上边框，以与轮播图大盒子区分开来。 */
+        .sidebar-recommendations .article-recommendations {
+            width: 100%;
+            height: 40%;
+            border-top: 3px solid #585858;
+        }
+
+        /* 设置每日一读中用来装标题的header盒子的宽度为其父元素每日一读模块大盒子宽度的百分之百，高度的百分之二十，给上背景颜色，最后再添加一个弹性盒子属性。 */
+        .article-recommendations .article-header {
+            width: 100%;
+            height: 20%;
+            background-color: #9c4343;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 设置每日一读中的头部盒子中标题文本的颜色属性，给上背景颜色，字体大小为18px，最后给上上外边距为百分之五。 */
+        .article-header .header-text {
+            color: #FFB800;
+            background-color: #9c4343;
+            font-size: 18px;
+            margin-top: 5%;
+        }
+
+        /* 设置每日一读中用来装文章内容的内容盒子的宽度为其父元素每日一读盒子宽度的百分之百，高度的百分之八十，给上背景颜色，最后再添加一个弹性盒子属性。 */
+        .article-recommendations .article-content {
+            width: 100%;
+            height: 80%;
+            background-color: #9c4343;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 设置每日一读中的内容盒子中用来装文章的span标签的宽度为其父元素内容盒子宽度的百分之九十，高度的百分之百，给上一个弹性盒子属性，设置其字体大小为13px，行高 */
+        /* 为自身大小的一点八倍，使其行与行的距离宽裕一点。 */
+        .article-content .content-text {
+            color: #FFB800;
+            background-color: #9c4343;
+            width: 90%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* 设置max-box中最下方大盒子的宽度为最大盒子max-box盒子的百分之百，高度为65px。并给上一个弹性盒子属性。 */
+        .maxbox .footer-box {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 设置最底部大盒子中用来装各种点缀网页的美食插画的盒子的宽度为其父盒子底部大盒子的百分之八十，高度的百分之百，给上一个上外边距为百分之二和背景颜色，最后再 */
+        /* 为其添加一个弹性盒子属性。 */
+        .footer-box .footer-img-box {
+            width: 80%;
+            height: 50%;
+            margin-top: 2%;
+            background-color: #9c4343;
+            display: flex;
+            justify-content: center;
+            /* padding-bottom: 1%; */
+        }
+
+        /* 设置用来点缀网页的每张插画的宽度为其父盒子点缀插画大盒子宽度的百分之六，高度的百分之百，给上一个左外边距百分之二，添加一个过渡动画，时间为0.2s，最后，为了 */
+        /* 让鼠标移入的时候插画变大可以突出盒子本身高度或者宽度，而不带着本身的背景颜色，设置了一个transparent属性值，以达到此效果。 */
+        .footer-box .footer-img-box>img {
+            width: 4%;
+            height: 100%;
+            margin-left: 2%;
+            transition: 0.2s;
+            background-color: transparent;
+        }
+
+        /* 第一张插画不需要做外边距，故设置为0。 */
+        .footer-box .footer-img-box>img:nth-child(1) {
+            margin-left: 0;
+        }
+
+        /* 给用来点缀网页的每张插画设置一个鼠标移入效果，鼠标移入自身放大自身的1.3倍，并改变鼠标的样式。 */
+        .footer-box .footer-img-box>img:hover {
+            transform: scale(1.3);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="maxbox">
+        <!-- 网页头部盒子 -->
+        <nav class="header">
+            <div class="logo">
+                <img src="./images/Logo.png" alt="">
+            </div>
+            <div class="box-search">
+                <div class="title-logo">
+                    <img src="./images/Title-logo.png" alt="">
+                </div>
+                <input type="search" placeholder="It'Time To Eat~">
+                <button type="submit" class="iconfont icon-jitui"></button>
+            </div>
+            <div class="nav-right">
+                <ul class="nav-list">
+                    <a href="javascript:;">
+                        <li>HOME</li>
+                    </a>
+                    <a href="javascript:;">
+                        <li>RESTAURANT</li>
+                    </a>
+                    <a href="javascript:;">
+                        <li>DELIVERY</li>
+                    </a>
+                    <a href="javascript:;">
+                        <li>FAVORITES</li>
+                    </a>
+                    <a href="javascript:;">
+                        <li>MY ACCOUNT</li>
+                    </a>
+                    <a href="javascript:;">
+                        <li>APP</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+        <!-- 网页内容部分盒子 -->
+        <main>
+            <aside class="sidebar-menu">
+                <ul class="sidebarmenu-list">
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-hanbao"></use>
+                        </svg>
+                        <li>Hamburger</li><span class="price">$5</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-regou"></use>
+                        </svg>
+                        <li>Hot Dog</li><span class="price">$5.5</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-shutiao"></use>
+                        </svg>
+                        <li>French Fries</li><span class="price">$3</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-pijiu"></use>
+                        </svg>
+                        <li>Beer</li><span class="price">$4</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-pisa"></use>
+                        </svg>
+                        <li>Pizza</li><span class="price">$8</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-mianbao"></use>
+                        </svg>
+                        <li>Bread</li><span class="price">$2</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-tiandian"></use>
+                        </svg>
+                        <li>Ice Cream</li><span class="price">$3</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                    <a href="javascript:;"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-kaoya"></use>
+                        </svg>
+                        <li>Roasted Chicken</li><span class="price">$12</span><span class="btn-box"><span
+                                class="add iconfont"></span><span class="subtract iconfont"></span></span>
+                    </a>
+                </ul>
+            </aside>
+            <section class="shopping-cart">
+                <header class="header-box">
+                    <input type="checkbox" class="check-box" id="selectALL"><label for="selectALL"><span
+                            class="custom-checkbox"></span>SelectALL</label><span
+                        class="dish-count iconfont">Count</span><span class="dish-price iconfont">Price</span>
+                </header>
+                <div class="selected-dishes">
+                    <ul class="shopping-cart-list">
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL1"><label
+                                for="selectALL1"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-hanbao"></use>
+                            </svg><span class="dish-text">Hamburger</span><span class="count">0</span><span
+                                class="price">$5</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL2"><label
+                                for="selectALL2"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-regou"></use>
+                            </svg><span class="dish-text">Hot Dog</span><span class="count">0</span><span
+                                class="price">$5.5</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL3"><label
+                                for="selectALL3"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-shutiao"></use>
+                            </svg><span class="dish-text">French Fries</span><span class="count">0</span><span
+                                class="price">$3</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL4"><label
+                                for="selectALL4"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-pijiu"></use>
+                            </svg><span class="dish-text">Beer</span><span class="count">0</span><span
+                                class="price">$4</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL5"><label
+                                for="selectALL5"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-pisa"></use>
+                            </svg><span class="dish-text">Pizza</span><span class="count">0</span><span
+                                class="price">$8</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL6"><label
+                                for="selectALL6"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-mianbao"></use>
+                            </svg><span class="dish-text">Bread</span><span class="count">0</span><span
+                                class="price">$2</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL7"><label
+                                for="selectALL7"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-tiandian"></use>
+                            </svg><span class="dish-text">Ice Cream</span><span class="count">0</span><span
+                                class="price">$3</span></li>
+                        <li class="dish-content"><input type="checkbox" class="checkbox" id="selectALL8"><label
+                                for="selectALL8"></label><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-kaoya"></use>
+                            </svg><span class="dish-text">Roasted Chicken</span><span class="count">0</span><span
+                                class="price">$12</span></li>
+                    </ul>
+                </div>
+                <div class="checkout-box">
+                    <div class="dish-summary"><span class="total-count">Total Count:</span><span
+                            class="total-price">Total Price:</span>
+                        <span class="checkout-btn-box"><button class="checkout-btn">CheckOut</button></span>
+                    </div>
+                </div>
+            </section>
+            <aside class="sidebar-recommendations">
+                <header class="aside-header"><span class="header-text">
+                        <img src="./images/aside-header-Text-Logo.png" alt="">
+                    </span></header>
+                <div class="carousel-box">
+                    <ul class="img-box">
+                        <li class="carousel-img"><img src="./carousel-images/汉堡.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/热狗.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/薯条.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/啤酒.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/披萨.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/面包.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/冰淇淋2.jpg" alt=""></li>
+                        <li class="carousel-img"><img src="./carousel-images/烤鸡1.jpg" alt=""></li>
+                    </ul>
+                </div>
+                <div class="article-recommendations">
+                    <div class="article-header"><span class="header-text">Daily Reading</span></div>
+                    <div class="article-content"><span class="content-text">The hamburger, a symbol of American cuisine,
+                            traces its roots back to the late 19th century. Originally, it was a simple sandwich made
+                            with ground beef between two slices of bread. Over time, it evolved into the diverse and
+                            delicious burgers we enjoy today, often topped with various condiments and toppings.</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+        <!-- 网页底部盒子 -->
+        <footer class="footer-box">
+            <div class="footer-img-box">
+                <img src="./footer-images/汉堡薯条可乐.png" alt="">
+                <img src="./footer-images/汉堡01.png" alt="">
+                <img src="./footer-images/汉堡.png" alt="">
+                <img src="./footer-images/披萨.png" alt="">
+                <img src="./footer-images/薯条.png" alt="">
+                <img src="./footer-images/啤酒.png" alt="">
+                <img src="./footer-images/面包.png" alt="">
+                <img src="./footer-images/吃鸡.png" alt="">
+                <img src="./footer-images/冰淇淋 (1).png" alt="">
+                <img src="./footer-images/汉堡鸡蛋.png" alt="">
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
